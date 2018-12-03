@@ -1,0 +1,71 @@
+
+#The id of this applier group
+group_id = 1000x
+
+host_name = localhost
+
+#The strategy to handle conflict, may be time_ignore|time_overwrite|ignore|overwrite, default time
+#if handle conflict base on time,need set the column name of row update time
+handle_conflict_strategy=overwrite
+update_time_column = update_time
+
+#Whether can apply ddl, default true
+allow_ddl=true
+
+#Election timeout, in seconds, default 40s
+election_timeout = 40
+
+#Max rate to comsume kafka, in KB/s, default 40MB
+max_rate = 40960
+
+#When incontinuous rdp pkg count reach 1000*n, (n=0,1,2,...), trigger alarm
+incontinuous_rdp_pkg_threshold = 1000
+
+#When trx's apply time large than slow_trx_threshold, will log it's info. default 10ms
+slow_trx_threshold = 30
+
+[log]
+#The log dir of applier
+dir = ../logs
+#Log level[debug|info|warn|error|fatal],default info
+level = info
+
+[kafka]
+#The kafka address of applier to fetch binlog event
+brokerlist = 10.10.10.1:9092,10.10.10.2:9092,10.10.10.3:9092
+topic = test_topic_1
+partition = 0
+version = 1.1.0
+
+[mysql]
+#The mysql address of applier to write
+host = localhost
+port = 3306
+#Applier use this name to communicate with mysql
+user = root
+#Applier use this password to communicate with mysql
+passwd = 123456
+# set the charset of applier, default charset is utf8mb4
+charset = utf8mb4
+connect_timeout = 30
+read_timeout = 10
+write_timeout = 10
+wait_timeout = 28880
+
+[zk]
+zk_addr_list = 10.10.10.1:2181,10.10.10.2:2181,10.10.10.3:2181
+zk_root = /drc/mysql_applier/1000x
+
+[admin]
+addr = 0.0.0.0:9595
+
+[metric]
+# Report metircs time interval, default 10seconds
+interval = 30
+# How to publish metrics, may be file|falcon, write into file or publish to falcon
+publish_type=file
+# Local file path
+dir = ../metrics
+# Falcon url and timeout
+#url = http://127.0.0.1:22230/v1/push
+#timeout = 5
