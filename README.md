@@ -13,7 +13,9 @@ DRC在[实时数据管道(RDP)](https://github.com/vipshop/RDP)的基础上，�
 # 总体架构
 
 以双向复制的场景为例，MySQL复制拓扑可以抽象为下图所示：
+
 ![active_active](/docs/picture/active_active.png)
+
 图中，MySQL分别部署在IDC_1和IDC_2，彼此相互同步变更事件（Change）。其中同步的工作由DRC来完成。
 
 
