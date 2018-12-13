@@ -1,6 +1,8 @@
 # 关于DRC
 DRC(Data Replication Center)是唯品会自研的MySQL双向复制方案，主要应用场景是数据库双向复制、单向复制。
 
+目前DRC正在唯品会生产环境逐步验证中，功能仍然在完善中，所以当前项目可能存在一些未知问题，如果你需要使用DRC，请评估好相应风险。
+
 DRC在[实时数据管道(RDP)](https://github.com/vipshop/RDP)的基础上，实现了以下功能：
 * 支持MySQL实例的数据双向复制。
 * 规避双向复制导致的循环复制。
@@ -9,6 +11,13 @@ DRC在[实时数据管道(RDP)](https://github.com/vipshop/RDP)的基础上，�
 * 支持数据对账, 检验双向复制正确性。
 
 # 总体架构
+
+以双向复制的场景为例，MySQL复制拓扑可以抽象为下图所示：
+![active_active](/docs/picture/active_active.png)
+图中，MySQL分别部署在IDC_1和IDC_2，彼此相互同步变更事件（Change）。其中同步的工作由DRC来完成。
+
+
+
 DRC总体架构如下所示：
 
 ![drc_architecture](/docs/picture/drc_architecture2.png)
